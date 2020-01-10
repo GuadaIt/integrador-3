@@ -12,6 +12,7 @@ let confirmarOperacion;
 let repetirOperacion = respuestaAfirmativa;
 let carritoDeCompras = [];
 let productoEncontrado = false;
+let codigoDeDescuento = "EXPECTOPATRONUM";
 let unidadesDeProducto;
 
 //////////////////////// FUNCIONES /////////////////////////////
@@ -49,7 +50,7 @@ const agregarProducto = (opp, arr1, arr2) => {
 
       idProductoAAgregar = Number(idProductoAAgregar);
 
-      for (let i = 0; i < arr2.length; i++) {  ////nunca entra a este for y no se por que ¯\_(ツ)_/¯
+      for (let i = 0; i < arr2.length; i++) {
         for (let j = 0; j < arr2[i][j].length; j++) {
           if (idProductoAAgregar === arr2[i][j]) {
             arr2.push(arr2[i])
@@ -89,13 +90,13 @@ const eliminarProducto = (opp, arr) => {
         for (let j = 0; j < arr[i][j].length; j++) {
           if (idProducto === arr[i][j]) {
             productoEncontrado = true;
-            unidadesDeProducto += 1; //no sé como mostrar la cantidad de unidades del producto que hay en el carrito de compras
-            confirmarOperacion = prompt(`Producto: 
-            ${arr[i][1]} 
-            ${unidadesDeProducto}
+            //no sé como mostrar la cantidad de unidades del producto que hay en el carrito de compras
+            confirmarOperacion = prompt(`
+            Producto: ${arr[i][1]} 
+            Canntidad: ${unidadesDeProducto}
 
             ¿Desea confirmar la operación?`);
-            //como le mostraria al usuario sólo algunos detalles del producto y no el array entero?
+            
             validacionSimple(confirmarOperacion);
 
             if (confirmarOperacion === respuestaAfirmativa) {
@@ -146,6 +147,33 @@ const cancelarCompra = opp => {
   }
   return salirDelPrograma;
 }
+
+const confirmarCompra = () => {
+  mostrarProductos()
+  contarTotalDeProductos()
+  let respuestaCodigo = prompt(`¿Tenes un código de descuento?`)
+  if (respuestaCodigo === respuestaAfirmativa) {
+    let codigoIngresado = prompt(`Ingrese el código de descuento`)
+    codigoIngresado = codigoIngresado.toUpperCase().trim()
+    if (codigoIngresado === codigoDeDescuento) {
+      alert(`Código válido`)
+      alert(/*mostrar compra con detalles de cada producto*/)
+      confirmarOperacion = prompt(`//mostrar descuento y total final
+      ¿Desea confirmar la compra?`)
+
+      if (confirmarCompra === respuestaAfirmativa) {
+        alert(`Compra realizada con éxito.
+        Gracias, vuelva prontos`)
+      }
+
+    } else {
+      alert(`Código inválido`)
+    }
+  } else {
+    alert(mostrarCompra())
+    confirmarOperacion = prompt(/*mostrat detalle de compra*/ `¿Desea`) 
+  }
+} 
 
 const contarTotalDeProductos = arr => arr.length;
 const subtotalDeCompra = arr => {
